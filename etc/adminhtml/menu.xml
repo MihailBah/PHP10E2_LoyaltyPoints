@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="PHP10E2_LoyaltyPoints::LoyaltyPoints" title="Loyalty Points" module="PHP10E2_LoyaltyPoints" sortOrder="51" resource="PHP10E2_LoyaltyPoints::LoyaltyPoints"/>
+        <add id="PHP10E2_LoyaltyPoints::LoyaltyPoints_configuration" title="Configuration" module="PHP10E2_LoyaltyPoints" sortOrder="99" parent="PHP10E2_LoyaltyPoints::LoyaltyPoints" action="adminhtml/system_config/edit/section/LoyaltyPoints" resource="PHP10E2_LoyaltyPoints::LoyaltyPoints_configuration"/>
+    </menu>
+</config>

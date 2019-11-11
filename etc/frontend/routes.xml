@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
     <router id="standard">
-        <route id="PHP10E2_LoyaltyPoints" frontName="PHP10E2_LoyaltyPoints">
+        <route id="php10e2_loyaltypoints" frontName="php10e2_loyaltypoints">
             <module name="PHP10E2_LoyaltyPoints" />
         </route>
     </router>

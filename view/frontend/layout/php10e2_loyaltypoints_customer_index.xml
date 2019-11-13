@@ -7,7 +7,7 @@
             </action>
         </referenceBlock>
         <referenceContainer name="content">
-            <block class="Magento\Framework\View\Element\Template" name="my_tab" template="PHP10E2_LoyaltyPoints::customer_loyalty_points.phtml">
+            <block cacheable="false" class="PHP10E2\LoyaltyPoints\Block\Info" as="loyalti_tab" name="my_tab" template="PHP10E2_LoyaltyPoints::customer_loyalty_points.phtml" >
             </block>
         </referenceContainer>
     </body>

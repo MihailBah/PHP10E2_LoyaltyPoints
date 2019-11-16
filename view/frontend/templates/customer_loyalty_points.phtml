@@ -2,10 +2,12 @@
 /** @var \PHP10E2\LoyaltyPoints\Block\Info $block */
 ?>
 
-<span>You have __ Loyalty Points </span>
-
+<h2>You have __ Loyalty Points</h2>
+<hr>
+<h3>How to earn loyalty points</h3>
+<p>Points will be added to your balance, after your friend follows the link below and buys something from the store:</p>
 <div>
-    <p>
-            <?= $block->getCustomerEmail() ?><br>
-    </p>
+    <a href="<?= $block->getReferralLink() ?>">
+        <?= $block->getReferralLink() ?>
+    </a>
 </div>

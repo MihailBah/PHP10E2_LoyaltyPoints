@@ -44,6 +44,5 @@ class Get extends Action
         $meta->setDuration(self::LIFE_TIME_COOKIE * 30); // 1 month
         $this->cookieManager->setPublicCookie(self::COOKIE_REFERRAL, $value, $meta);
         $this->_redirect($this->template->getBaseUrl());
-
     }
 }

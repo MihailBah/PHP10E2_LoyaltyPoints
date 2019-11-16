@@ -2,6 +2,7 @@
 namespace PHP10E2\LoyaltyPoints\Block;
 
 use Magento\Framework\Exception\NoSuchEntityException;
+use PHP10E2\LoyaltyPoints\Controller\Referral\Get;
 
 /**
  * Class Info
@@ -28,5 +29,12 @@ class Info extends \Magento\Framework\View\Element\Template
     public function getCustomerEmail()
     {
         return $this->_customerSession->getCustomer() ? $this->_customerSession->getCustomer()->getEmail() : '';
+    }
+
+    public function getReferralLink()
+    {
+        $hashEmail = md5($this->getCustomerEmail());
+        $referralLink = $this->getBaseUrl() . 'php10e2_loyaltypoints/referral/get/referral/' . $hashEmail;
+        return $referralLink;
     }
 }

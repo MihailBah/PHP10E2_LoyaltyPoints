@@ -20,7 +20,7 @@
                         showInWebsite="0"
                         showInStore="0"
                 >
-                    <label>Discont</label>
+                    <label>Discount</label>
                     <comment>refundable percentage of the purchase by reference</comment>
                 </field>
 <!--                <field-->

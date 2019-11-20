@@ -2,7 +2,9 @@
 namespace PHP10E2\LoyaltyPoints\Block;
 
 use Magento\Framework\Exception\NoSuchEntityException;
+use Magento\Customer\Model\Session;
 use PHP10E2\LoyaltyPoints\Controller\Referral\Get;
+//use Magento\Framework\Session\SessionManager;
 
 /**
  * Class Info
@@ -33,8 +35,33 @@ class Info extends \Magento\Framework\View\Element\Template
 
     public function getReferralLink()
     {
-        $hashEmail = md5($this->getCustomerEmail());
-        $referralLink = $this->getBaseUrl() . 'php10e2_loyaltypoints/referral/get/referral/' . $hashEmail;
+        $referralLink = $this->getBaseUrl() . 'php10e2_loyaltypoints/referral/get/referral/' . $this->encryptId();
         return $referralLink;
+    }
+
+    public function getCustomerId()
+    {
+        return $this->_customerSession->getCustomer() ? $this->_customerSession->getCustomer()->getId() : '';
+    }
+
+    function encryptData($data, $key) {
+        $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length('cast5-cfb'));
+        $encrypted = openssl_encrypt($data, 'cast5-cfb', $key, 0, $iv);
+        return base64_encode($encrypted . '::' . $iv);
+    }
+
+    function decryptData($data, $key) {
+        list($data, $iv) = explode('::', base64_decode($data));
+        return openssl_decrypt($data, 'cast5-cfb', $key, 0, $iv);
+    }
+
+    function encryptId()
+    {
+        return $this->encryptData($this->getCustomerId(), 'key');
+    }
+
+    function decryptId()
+    {
+        return $this->decryptData($this->encryptId(), 'key');
     }
 }

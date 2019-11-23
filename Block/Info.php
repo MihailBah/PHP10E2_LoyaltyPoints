@@ -1,9 +1,6 @@
 <?php
 namespace PHP10E2\LoyaltyPoints\Block;
 
-use Magento\Framework\Exception\NoSuchEntityException;
-use Magento\Customer\Model\Session;
-use PHP10E2\LoyaltyPoints\Controller\Referral\Get;
 //use Magento\Framework\Session\SessionManager;
 
 /**
@@ -12,6 +9,11 @@ use PHP10E2\LoyaltyPoints\Controller\Referral\Get;
  */
 class Info extends \Magento\Framework\View\Element\Template
 {
+    /**
+     *  const string
+     */
+    const KEY = 'key';
+
     protected $_customerSession;
 
     /**
@@ -23,7 +25,6 @@ class Info extends \Magento\Framework\View\Element\Template
         \Magento\Framework\View\Element\Template\Context $context,
         \Magento\Customer\Model\Session $customerSession
     ) {
-
         $this->_customerSession = $customerSession;
         parent::__construct($context, []);
     }
@@ -44,24 +45,26 @@ class Info extends \Magento\Framework\View\Element\Template
         return $this->_customerSession->getCustomer() ? $this->_customerSession->getCustomer()->getId() : '';
     }
 
-    function encryptData($data, $key) {
+    public function encryptData($data, $key)
+    {
         $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length('cast5-cfb'));
         $encrypted = openssl_encrypt($data, 'cast5-cfb', $key, 0, $iv);
         return base64_encode($encrypted . '::' . $iv);
     }
 
-    function decryptData($data, $key) {
+    public function decryptData($data, $key)
+    {
         list($data, $iv) = explode('::', base64_decode($data));
         return openssl_decrypt($data, 'cast5-cfb', $key, 0, $iv);
     }
 
-    function encryptId()
+    public function encryptId()
     {
-        return $this->encryptData($this->getCustomerId(), 'key');
+        return $this->encryptData($this->getCustomerId(), self::KEY);
     }
 
-    function decryptId()
+    public function decryptId()
     {
-        return $this->decryptData($this->encryptId(), 'key');
+        return $this->decryptData($this->encryptId(), self::KEY);
     }
 }

@@ -45,4 +45,12 @@ class Get extends Action
         $this->cookieManager->setPublicCookie(self::COOKIE_REFERRAL, $value, $meta);
         $this->_redirect($this->template->getBaseUrl());
     }
+
+    /**
+     * @return string
+     */
+    public function getFromCookie() : string
+    {
+        return $this->cookieManager->getCookie(self::COOKIE_REFERRAL);
+    }
 }

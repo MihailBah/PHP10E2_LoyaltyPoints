@@ -1,4 +1,5 @@
 <?php
+
 namespace PHP10E2\LoyaltyPoints\Controller\Customer;
 
 use Magento\Framework\App\Action\Context;

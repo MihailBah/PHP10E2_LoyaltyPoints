@@ -1,7 +1,7 @@
 <?php
 namespace PHP10E2\LoyaltyPoints\Block;
 
-//use Magento\Framework\Session\SessionManager;
+use PHP10E2\LoyaltyPoints\Observer\Product\Data;
 
 /**
  * Class Info
@@ -16,6 +16,9 @@ class Info extends \Magento\Framework\View\Element\Template
 
     protected $_customerSession;
 
+    protected $toDoFactory;
+
+    protected $_objectManager;
     /**
      * Info constructor.
      * @param \Magento\Framework\View\Element\Template\Context $context
@@ -23,9 +26,11 @@ class Info extends \Magento\Framework\View\Element\Template
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
-        \Magento\Customer\Model\Session $customerSession
+        \Magento\Customer\Model\Session $customerSession,
+        \PHP10E2\LoyaltyPoints\Model\TodoItemFactory $toDoFactory
     ) {
         $this->_customerSession = $customerSession;
+        $this->toDoFactory = $toDoFactory;
         parent::__construct($context, []);
     }
 
@@ -67,4 +72,18 @@ class Info extends \Magento\Framework\View\Element\Template
     {
         return $this->decryptData($this->encryptId(), self::KEY);
     }
+
+    public function getLoyaltyPoints()
+    {
+        $todo = $this->toDoFactory->create();
+        $id = $this->getCustomerId();
+        $todo = $todo->load($id);
+        return $todo->getData('loyalty_points');
+    }
+
+    public function getDataFromAdmin()
+    {
+        return $this->_scopeConfig->getValue('LoyaltyPoints/general/value', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+    }
+
 }

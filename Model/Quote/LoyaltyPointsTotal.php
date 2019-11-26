@@ -6,17 +6,24 @@ use Magento\Quote\Api\Data\ShippingAssignmentInterface;
 use Magento\Quote\Model\Quote;
 use Magento\Quote\Model\Quote\Address\Total;
 use Magento\Quote\Model\Quote\Address\Total\AbstractTotal;
+use PHP10E2\LoyaltyPoints\Block\Info;
 
 class LoyaltyPointsTotal extends AbstractTotal
 {
-    public function __construct()
+    /**
+     * @var Info
+     */
+    public $blockInfo;
+
+    public function __construct(Info $blockInfo)
     {
         $this->setCode('loyalty_points_total');
+        $this->blockInfo = $blockInfo;
     }
 
     public function getAmount()
     {
-        return 100;
+        return $this->blockInfo->getLoyaltyPoints();
     }
 
     public function collect(

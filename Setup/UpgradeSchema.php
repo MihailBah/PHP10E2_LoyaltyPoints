@@ -1,42 +1,39 @@
 <?php
+
 namespace PHP10E2\LoyaltyPoints\Setup;
 
 use Magento\Framework\Setup\UpgradeSchemaInterface;
 use Magento\Framework\Setup\SchemaSetupInterface;
 use Magento\Framework\Setup\ModuleContextInterface;
-//use Magento\Framework\DB\Ddl\Table;
 
 class UpgradeSchema implements UpgradeSchemaInterface
 {
     /**
-     * Upgrades DB schema for a module
-     *
      * @param SchemaSetupInterface $setup
      * @param ModuleContextInterface $context
-     * @return void
      */
-    public function upgrade(SchemaSetupInterface $setup, ModuleContextInterface $context)
-    {
-        $setup->startSetup();
+    public function upgrade(SchemaSetupInterface $setup, ModuleContextInterface $context ) {
 
-        $customerTable = 'customer_entity';
-        $orderTable = 'sales_order';
+        $installer = $setup;
 
-        $setup->getConnection()
-            ->addColumn(
-                $setup->getTable($customerTable),
+        $installer->startSetup();
+
+        if(version_compare($context->getVersion(), '1.2.0', '<')) {
+
+            $installer->getConnection()->addColumn(
+                $installer->getTable('customer_entity'),
                 'loyalty_points',
                 [
                     'type' => \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
                     'length' =>'10000',
                     'nullable' => true,
+                    'default' => 0,
                     'comment' =>'Loyalty Points'
                 ]
             );
 
-        $setup->getConnection()
-            ->addColumn(
-                $setup->getTable($orderTable),
+            $installer->getConnection()->addColumn(
+                $installer->getTable('sales_order'),
                 'referral_id',
                 [
                     'type' => \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
@@ -45,7 +42,7 @@ class UpgradeSchema implements UpgradeSchemaInterface
                     'comment' =>'Referral ID'
                 ]
             );
-
-        $setup->endSetup();
+        }
+        $installer->endSetup();
     }
 }

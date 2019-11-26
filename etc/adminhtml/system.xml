@@ -22,19 +22,8 @@
                 >
                     <label>Discount</label>
                     <comment>refundable percentage of the purchase by reference</comment>
+                    <validate>validate-not-negative-number</validate>
                 </field>
-<!--                <field-->
-<!--                        id="lifetime"-->
-<!--                       translate="label"-->
-<!--                       type="text"-->
-<!--                       sortOrder="1"-->
-<!--                       showInDefault="1"-->
-<!--                       showInWebsite="1"-->
-<!--                       showInStore="1"-->
-<!--                >-->
-<!--                    <label>Lifetime</label>-->
-<!--                    <comment>minutes</comment>-->
-<!--                </field>-->
             </group>
         </section>
     </system>

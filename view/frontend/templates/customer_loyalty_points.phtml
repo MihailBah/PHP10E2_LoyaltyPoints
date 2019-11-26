@@ -2,10 +2,10 @@
 /** @var \PHP10E2\LoyaltyPoints\Block\Info $block */
 ?>
 
-<h2>You have __ Loyalty Points</h2>
+<h2>You have <b><?= $block->getLoyaltyPoints() ?></b> Loyalty Points</h2>
 <hr>
 <h3>How to earn loyalty points</h3>
-<p>Points will be added to your balance, after your friend follows the link below and buys something from the store:</p>
+<p>After your friend follows your link and buys something from the store, you will receive <b><?= $block->getDataFromAdmin()?>%</b> of his order to your Loyalty Points Balance</p>
 <div>
     <a href="<?= $block->getReferralLink() ?>">
         <?= $block->getReferralLink() ?>

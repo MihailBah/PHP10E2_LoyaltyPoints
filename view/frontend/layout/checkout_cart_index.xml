@@ -16,7 +16,7 @@
                                 <item name="before_grandtotal" xsi:type="array">
                                     <item name="children" xsi:type="array">
                                         <item name="loyalty_points_total" xsi:type="array">
-                                            <item name="component" xsi:type="string">PHP10E2_LoyaltyPoints/js/loyalty_points_total</item>
+                                            <item name="component" xsi:type="string">PHP10E2_LoyaltyPoints/js/view/loyalty_points_total</item>
                                         </item>
                                     </item>
                                 </item>

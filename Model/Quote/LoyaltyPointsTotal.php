@@ -46,10 +46,11 @@ class LoyaltyPointsTotal extends AbstractTotal
     public function fetch(
         Quote $quote,
         Total $total
-    ) {
+    )
+    {
         return [
             'code' => $this->getCode(),
-            'title' =>  __('Loyalty points'),
+            'title' => __('Loyalty points'),
             'value' => $this->getAmount(),
         ];
     }

@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
     <event name="checkout_onepage_controller_success_action">
-        <observer name="PHP10E2ProductData" instance="PHP10E2\LoyaltyPoints\Observer\Product\Data" />
+        <observer name="PHP10E2OrderAccrualLoyaltyPoints" instance="PHP10E2\LoyaltyPoints\Observer\Order\AccrualLoyaltyPoints" />
+        <observer name="PHP10E2OrderDebitingLoyaltyPoints" instance="PHP10E2\LoyaltyPoints\Observer\Order\DebitingLoyaltyPoints" />
     </event>
 </config>

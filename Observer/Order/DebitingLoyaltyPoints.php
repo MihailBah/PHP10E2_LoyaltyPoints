@@ -51,6 +51,12 @@ class DebitingLoyaltyPoints implements ObserverInterface
 
         $subtotal = $order->getSubtotal();
 
+        //$discount = $order->getDiscountAmount();
+
+        //$grandTotal = $order->getGrandTotal();
+
+        //$result = $grandTotal - $oldLP;
+
         $result = $subtotal - $oldLP;
 
         if ($result >= 0) {

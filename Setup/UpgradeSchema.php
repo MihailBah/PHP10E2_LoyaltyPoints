@@ -31,17 +31,6 @@ class UpgradeSchema implements UpgradeSchemaInterface
                     'comment' =>'Loyalty Points'
                 ]
             );
-
-            $installer->getConnection()->addColumn(
-                $installer->getTable('sales_order'),
-                'referral_id',
-                [
-                    'type' => \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
-                    'length'=>'10',
-                    'nullable' => true,
-                    'comment' =>'Referral ID'
-                ]
-            );
         }
         $installer->endSetup();
     }

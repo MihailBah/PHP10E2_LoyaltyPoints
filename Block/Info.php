@@ -1,7 +1,9 @@
 <?php
 namespace PHP10E2\LoyaltyPoints\Block;
 
-use PHP10E2\LoyaltyPoints\Observer\Product\Data;
+use Magento\Customer\Model\Session;
+use Magento\Framework\View\Element\Template\Context;
+use PHP10E2\LoyaltyPoints\Model\TodoItemFactory;
 
 /**
  * Class Info
@@ -19,15 +21,17 @@ class Info extends \Magento\Framework\View\Element\Template
     protected $toDoFactory;
 
     protected $_objectManager;
+
     /**
      * Info constructor.
-     * @param \Magento\Framework\View\Element\Template\Context $context
-     * @param \Magento\Customer\Model\Session $customerSession
+     * @param Context $context
+     * @param Session $customerSession
+     * @param TodoItemFactory $toDoFactory
      */
     public function __construct(
-        \Magento\Framework\View\Element\Template\Context $context,
-        \Magento\Customer\Model\Session $customerSession,
-        \PHP10E2\LoyaltyPoints\Model\TodoItemFactory $toDoFactory
+        Context $context,
+        Session $customerSession,
+        TodoItemFactory $toDoFactory
     ) {
         $this->_customerSession = $customerSession;
         $this->toDoFactory = $toDoFactory;
@@ -68,11 +72,6 @@ class Info extends \Magento\Framework\View\Element\Template
         return $this->encryptData($this->getCustomerId(), self::KEY);
     }
 
-    public function decryptId()
-    {
-        return $this->decryptData($this->encryptId(), self::KEY);
-    }
-
     public function getLoyaltyPoints()
     {
         $todo = $this->toDoFactory->create();
@@ -85,5 +84,4 @@ class Info extends \Magento\Framework\View\Element\Template
     {
         return $this->_scopeConfig->getValue('LoyaltyPoints/general/value', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
     }
-
 }

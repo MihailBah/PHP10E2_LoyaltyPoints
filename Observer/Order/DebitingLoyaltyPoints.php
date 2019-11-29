@@ -3,10 +3,11 @@
 namespace PHP10E2\LoyaltyPoints\Observer\Order;
 
 use Exception;
+use Magento\Framework\App\ObjectManager;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
 use PHP10E2\LoyaltyPoints\Block\Info;
-use PHP10E2\LoyaltyPoints\Model\TodoItemFactory;
+use PHP10E2\LoyaltyPoints\Model\TodoItemFactory; // TODO \LoyaltyPointsFactory
 
 class DebitingLoyaltyPoints implements ObserverInterface
 {
@@ -25,8 +26,7 @@ class DebitingLoyaltyPoints implements ObserverInterface
     public function __construct(
         Info $blockInfo,
         TodoItemFactory $toDoFactory
-    )
-    {
+    ) {
         $this->blockInfo = $blockInfo;
         $this->toDoFactory = $toDoFactory;
     }
@@ -40,14 +40,17 @@ class DebitingLoyaltyPoints implements ObserverInterface
         $order = $observer->getEvent()->getOrder();
         $orderId = $order->getId();
 
-        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+        $objectManager = ObjectManager::getInstance();
         $order = $objectManager->create('Magento\Sales\Api\Data\OrderInterface')->load($orderId);
 
-        $todo = $this->toDoFactory->create();
+        $todo = $this->toDoFactory->create(); // TODO rename loyaltyPointModel
         $id = $this->blockInfo->getCustomerId();
         $todo = $todo->load($id);
 
         $oldLP = intval($todo->getData('loyalty_points'));
+
+        $allTotalAmounts = array_sum($order->getAllTotalAmounts());
+        $allBaseTotalAmounts = array_sum($order->getAllBaseTotalAmounts());
 
         $subtotal = $order->getSubtotal();
 

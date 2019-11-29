@@ -15,9 +15,14 @@ class LoyaltyPointsTotal extends AbstractTotal
      */
     public $blockInfo;
 
+    /**
+     * @const string
+     */
+    const CODE = 'loyalty_points_total';
+
     public function __construct(Info $blockInfo)
     {
-        $this->setCode('loyalty_points_total');
+        $this->setCode(self::CODE);
         $this->blockInfo = $blockInfo;
     }
 
@@ -31,8 +36,6 @@ class LoyaltyPointsTotal extends AbstractTotal
         ShippingAssignmentInterface $shippingAssignment,
         Total $total
     ) {
-        $full = $total->getFullInfo();
-        $all = $total->getAmount();
         $allTotalAmounts = array_sum($total->getAllTotalAmounts());
         $allBaseTotalAmounts = array_sum($total->getAllBaseTotalAmounts());
         $amount = $this->getAmount();
@@ -46,8 +49,7 @@ class LoyaltyPointsTotal extends AbstractTotal
     public function fetch(
         Quote $quote,
         Total $total
-    )
-    {
+    ) {
         return [
             'code' => $this->getCode(),
             'title' => __('Loyalty points'),

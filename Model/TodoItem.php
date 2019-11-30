@@ -2,7 +2,10 @@
 
 namespace PHP10E2\LoyaltyPoints\Model;
 
-class TodoItem extends \Magento\Framework\Model\AbstractModel implements \Magento\Framework\DataObject\IdentityInterface
+use Magento\Framework\DataObject\IdentityInterface;
+use Magento\Framework\Model\AbstractModel;
+
+class TodoItem extends AbstractModel implements IdentityInterface // TODO rename to LoyaltyPoints
 {
     const CACHE_TAG = 'customer_entity';
 

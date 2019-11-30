@@ -1,12 +1,16 @@
 define([
     'Magento_Checkout/js/view/summary/abstract-total',
-    'Magento_Checkout/js/model/quote'
-], function (Component, quote) {
+    'Magento_Checkout/js/model/quote',
+    'Magento_Customer/js/model/customer'
+], function (Component, quote, customer) {
     'use strict';
 
     return Component.extend({
         defaults: {
             template: 'PHP10E2_LoyaltyPoints/loyalty_points_total_template'
+        },
+        isLoggedIn: function() {
+            return customer.isLoggedIn();
         },
         totals: quote.getTotals(),
         getPointsTotal: function() {

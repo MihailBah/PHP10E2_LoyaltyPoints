@@ -2,11 +2,12 @@
 
 namespace PHP10E2\LoyaltyPoints\Controller\Customer;
 
-use Magento\Framework\App\Action\Context;
+use Magento\Framework\App\Action\Action;
 
-class Index extends \Magento\Framework\App\Action\Action {
-
-    public function execute() {
+class Index extends Action
+{
+    public function execute()
+    {
         $this->_view->loadLayout();
         $this->_view->renderLayout();
     }

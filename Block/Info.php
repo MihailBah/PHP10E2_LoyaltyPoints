@@ -3,18 +3,27 @@ namespace PHP10E2\LoyaltyPoints\Block;
 
 use Magento\Customer\Model\Session;
 use Magento\Framework\View\Element\Template\Context;
-use PHP10E2\LoyaltyPoints\Model\TodoItemFactory;
+use Magento\Store\Model\ScopeInterface;
+use PHP10E2\LoyaltyPoints\Block\System\Config;
+use PHP10E2\LoyaltyPoints\Controller\Referral\Get;
+use PHP10E2\LoyaltyPoints\Model\TodoItemFactory; // TODO \LoyaltyPointsFactory
 
 /**
  * Class Info
  * @package PHP10E2\LoyaltyPoints\Block
  */
+// TODO maybe rename to CustomerLoyaltyPoints
 class Info extends \Magento\Framework\View\Element\Template
 {
     /**
      *  const string
      */
     const KEY = 'key';
+
+    /**
+     *  const string
+     */
+    const PATH_TO_GET_CONTROLLER = 'php10e2_loyaltypoints/referral/get/';
 
     protected $_customerSession;
 
@@ -45,7 +54,7 @@ class Info extends \Magento\Framework\View\Element\Template
 
     public function getReferralLink()
     {
-        $referralLink = $this->getBaseUrl() . 'php10e2_loyaltypoints/referral/get/referral/' . $this->encryptId();
+        $referralLink = $this->getBaseUrl() . self::PATH_TO_GET_CONTROLLER . Get::COOKIE_REFERRAL . '/' . $this->encryptId();
         return $referralLink;
     }
 
@@ -82,6 +91,6 @@ class Info extends \Magento\Framework\View\Element\Template
 
     public function getDataFromAdmin()
     {
-        return $this->_scopeConfig->getValue('LoyaltyPoints/general/value', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+        return $this->_scopeConfig->getValue(Config::CONFIG_PATH_LOYALTYPOINTS_GENERAL_VALUE, ScopeInterface::SCOPE_STORE);
     }
 }

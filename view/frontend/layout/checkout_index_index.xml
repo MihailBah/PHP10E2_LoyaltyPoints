@@ -16,10 +16,6 @@
                                                         <item name="loyalty_points_total" xsi:type="array">
                                                             <item name="component"  xsi:type="string">PHP10E2_LoyaltyPoints/js/view/loyalty_points_total</item>
                                                             <item name="sortOrder" xsi:type="string">20</item>
-                                                            <item name="config" xsi:type="array">
-                                                                <item name="template" xsi:type="string">PHP10E2_LoyaltyPoints/loyalty_points_total_template</item>
-                                                                <!-- <item name="title" xsi:type="string" translate="true">Custom Fee</item>-->
-                                                            </item>
                                                         </item>
                                                     </item>
                                                 </item>

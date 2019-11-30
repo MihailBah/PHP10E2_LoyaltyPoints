@@ -36,20 +36,17 @@ class Config extends Template
             $context,
             $data
         );
-        $this->scopeConfig = $scopeConfig;
+        self::$scopeConfig = $scopeConfig;
     }
 
     /**
-     * @param string|null $storeId
-     *
      * @return mixed
      */
-    public static function getCustomConfig(?string $storeId = null)
+    public static function getCustomConfig()
     {
         return self::$scopeConfig->getValue(
             self::CONFIG_PATH_LOYALTYPOINTS_GENERAL_VALUE,
-            ScopeInterface::SCOPE_STORE,
-            $storeId
+            ScopeInterface::SCOPE_STORE
         );
     }
 }

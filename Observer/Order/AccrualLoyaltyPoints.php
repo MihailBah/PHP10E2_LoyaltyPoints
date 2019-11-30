@@ -56,25 +56,27 @@ class AccrualLoyaltyPoints implements ObserverInterface
         $orderId = $order->getId();
 
         $encodedId = $this->get->getFromCookie();
-        $decodedId= $this->blockInfo->decryptData($encodedId, $this->blockInfo::KEY);
+        if (!empty($encodedId)) {
+            $decodedId= $this->blockInfo->decryptData($encodedId, $this->blockInfo::KEY);
 
-        $id = $this->blockInfo->getCustomerId();
+            $id = $this->blockInfo->getCustomerId();
 
-        if ($decodedId != $id) {
-            $objectManager = ObjectManager::getInstance();
-            $order = $objectManager->create('Magento\Sales\Api\Data\OrderInterface')->load($orderId);
+            if ($decodedId != $id) {
+                $objectManager = ObjectManager::getInstance();
+                $order = $objectManager->create('Magento\Sales\Api\Data\OrderInterface')->load($orderId);
 
-            $grandTotal = $order->getGrandTotal();
+                $grandTotal = $order->getGrandTotal();
 
-            $percentage = $this->blockInfo->getDataFromAdmin();
-            $LP = round(($percentage / 100) * $grandTotal);
+                $percentage = $this->blockInfo->getDataFromAdmin();
+                $LP = round(($percentage / 100) * $grandTotal);
 
-            $todo = $this->toDoFactory->create();
-            $todo = $todo->load($decodedId);
+                $todo = $this->toDoFactory->create();
+                $todo = $todo->load($decodedId);
 
-            $oldLP = intval($todo->getData('loyalty_points'));
-            $newLP = $oldLP + $LP;
-            $todo->setData('loyalty_points', $newLP)->save();
+                $oldLP = intval($todo->getData('loyalty_points'));
+                $newLP = $oldLP + $LP;
+                $todo->setData('loyalty_points', $newLP)->save();
+            }
         }
     }
 }

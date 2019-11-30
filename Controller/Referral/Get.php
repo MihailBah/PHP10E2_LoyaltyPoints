@@ -49,7 +49,7 @@ class Get extends Action
     /**
      * @return string
      */
-    public function getFromCookie() : string
+    public function getFromCookie() : ?string
     {
         return $this->cookieManager->getCookie(self::COOKIE_REFERRAL);
     }

@@ -21,8 +21,8 @@
                         showInStore="0"
                 >
                     <label>Discount</label>
-                    <comment>refundable percentage of the purchase by reference</comment>
-                    <validate>validate-not-negative-number</validate>
+                    <comment>select from 0 to 100 refundable percentage of the purchase by reference</comment>
+                    <validate>validate-digits-range digits-range-0-100</validate>
                 </field>
             </group>
         </section>

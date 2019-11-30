@@ -49,9 +49,6 @@ class DebitingLoyaltyPoints implements ObserverInterface
 
         $oldLP = intval($todo->getData('loyalty_points'));
 
-        $allTotalAmounts = array_sum($order->getAllTotalAmounts());
-        $allBaseTotalAmounts = array_sum($order->getAllBaseTotalAmounts());
-
         $subtotal = $order->getSubtotal();
 
         //$discount = $order->getDiscountAmount();

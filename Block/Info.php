@@ -3,6 +3,7 @@ namespace PHP10E2\LoyaltyPoints\Block;
 
 use Magento\Customer\Model\Session;
 use Magento\Framework\View\Element\Template\Context;
+use Magento\Store\Model\ScopeInterface;
 use PHP10E2\LoyaltyPoints\Block\System\Config;
 use PHP10E2\LoyaltyPoints\Controller\Referral\Get;
 use PHP10E2\LoyaltyPoints\Model\TodoItemFactory; // TODO \LoyaltyPointsFactory
@@ -11,7 +12,8 @@ use PHP10E2\LoyaltyPoints\Model\TodoItemFactory; // TODO \LoyaltyPointsFactory
  * Class Info
  * @package PHP10E2\LoyaltyPoints\Block
  */
-class Info extends \Magento\Framework\View\Element\Template // TODO maybe rename to CustomerLoyaltyPoints
+// TODO maybe rename to CustomerLoyaltyPoints
+class Info extends \Magento\Framework\View\Element\Template
 {
     /**
      *  const string
@@ -89,7 +91,6 @@ class Info extends \Magento\Framework\View\Element\Template // TODO maybe rename
 
     public function getDataFromAdmin()
     {
-        return Config::getCustomConfig();
-//        return $this->_scopeConfig->getValue('LoyaltyPoints/general/value', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+        return $this->_scopeConfig->getValue(Config::CONFIG_PATH_LOYALTYPOINTS_GENERAL_VALUE, ScopeInterface::SCOPE_STORE);
     }
 }

@@ -15,6 +15,8 @@ class LoyaltyPointsTotal extends AbstractTotal
      */
     public $blockInfo;
 
+    static $debitedPoints=123;
+
     public function __construct(Info $blockInfo)
     {
         $this->setCode('loyalty_points_total');
@@ -39,8 +41,19 @@ class LoyaltyPointsTotal extends AbstractTotal
         $totalSale = $amount > $allTotalAmounts ? $allTotalAmounts : $amount;
         $totalBaseSale = $amount > $allBaseTotalAmounts ? $allBaseTotalAmounts : $amount;
 
+        $totalBaseSale = floor($totalBaseSale);
+        $totalSale = floor($totalSale);
+
+        //self::$debitedPoints = 123;
+        //self::$debitedPoints = $totalSale;
+
         $total->addTotalAmount($this->getCode(), -$totalSale);
         $total->addBaseTotalAmount($this->getCode(), -$totalBaseSale);
+    }
+
+    public function getDebitedPoints()
+    {
+        return self::$debitedPoints;
     }
 
     public function fetch(
@@ -51,7 +64,7 @@ class LoyaltyPointsTotal extends AbstractTotal
         return [
             'code' => $this->getCode(),
             'title' => __('Loyalty points'),
-            'value' => $this->getAmount(),
+            'value' => $this->getDebitedPoints(),
         ];
     }
 }

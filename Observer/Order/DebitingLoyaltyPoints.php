@@ -7,6 +7,7 @@ use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
 use PHP10E2\LoyaltyPoints\Block\Info;
 use PHP10E2\LoyaltyPoints\Model\TodoItemFactory;
+use PHP10E2\LoyaltyPoints\Model\Quote\LoyaltyPointsTotal;
 
 class DebitingLoyaltyPoints implements ObserverInterface
 {
@@ -17,18 +18,23 @@ class DebitingLoyaltyPoints implements ObserverInterface
 
     public $toDoFactory;
 
+    public $lpTotal;
+
     /**
      * Data constructor.
      * @param Info $blockInfo
      * @param TodoItemFactory $toDoFactory
+     * @param LoyaltyPointsTotal $lpTotal
      */
     public function __construct(
         Info $blockInfo,
-        TodoItemFactory $toDoFactory
+        TodoItemFactory $toDoFactory,
+        LoyaltyPointsTotal $lpTotal
     )
     {
         $this->blockInfo = $blockInfo;
         $this->toDoFactory = $toDoFactory;
+        $this->lpTotal = $lpTotal;
     }
 
     /**
@@ -49,21 +55,10 @@ class DebitingLoyaltyPoints implements ObserverInterface
 
         $oldLP = intval($todo->getData('loyalty_points'));
 
-        $subtotal = $order->getSubtotal();
+        $debitedPoints = LoyaltyPointsTotal::$debitedPoints;
 
-        //$discount = $order->getDiscountAmount();
+        $result = $oldLP - $debitedPoints;
 
-        //$grandTotal = $order->getGrandTotal();
-
-        //$result = $grandTotal - $oldLP;
-
-        $result = $subtotal - $oldLP;
-
-        if ($result >= 0) {
-            $todo->setData('loyalty_points', 0)->save();
-        } else {
-            $result = $result * -1;
-            $todo->setData('loyalty_points', $result)->save();
-        }
+        $todo->setData('loyalty_points', $result)->save();
     }
 }

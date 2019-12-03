@@ -7,7 +7,7 @@ define([
 
     return Component.extend({
         defaults: {
-            template: 'PHP10E2_LoyaltyPoints/loyalty_points_total_template'
+            template: 'PHP10E2_LoyaltyPoints/cart/totals/loyalty_points_total_template'
         },
         isLoggedIn: function() {
             return customer.isLoggedIn();

@@ -2,7 +2,7 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Sales:etc/sales.xsd">
     <section name="quote">
         <group name="totals">
-            <item name="loyalty_points_total" instance="PHP10E2\LoyaltyPoints\Model\Quote\LoyaltyPointsTotal" sort_order="320"/>
+            <item name="loyalty_points_total" instance="PHP10E2\LoyaltyPoints\Model\Quote\LoyaltyPointsTotal" sort_order="540"/>
         </group>
     </section>
 </config>

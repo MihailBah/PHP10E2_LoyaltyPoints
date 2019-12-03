@@ -1,0 +1,13 @@
+<h1>TEST</h1>
+<!-- ko if: isLoggedIn() -->
+<div>
+    <tr>
+        <th>
+            <span class="title" data-bind="text: getTitle()"></span>
+        </th>
+        <td class="amount" data-bind="attr: {'data-th': title}">
+            <span><span class="price" data-bind="text: getValue()"></span></span>
+        </td>
+    </tr>
+</div>
+<!-- /ko -->

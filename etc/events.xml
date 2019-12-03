@@ -4,4 +4,7 @@
         <observer name="PHP10E2OrderAccrualLoyaltyPoints" instance="PHP10E2\LoyaltyPoints\Observer\Order\AccrualLoyaltyPoints" />
         <observer name="PHP10E2OrderDebitingLoyaltyPoints" instance="PHP10E2\LoyaltyPoints\Observer\Order\DebitingLoyaltyPoints" />
     </event>
+    <event name="sales_model_service_quote_submit_before">
+        <observer name="sr_delivery_date" instance="PHP10E2\LoyaltyPoints\Observer\Order\SaveDataToOrderObserver"/>
+    </event>
 </config>

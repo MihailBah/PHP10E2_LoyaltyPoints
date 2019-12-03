@@ -11,6 +11,10 @@ use PHP10E2\LoyaltyPoints\Block\Info;
 use PHP10E2\LoyaltyPoints\Controller\Referral\Get;
 use PHP10E2\LoyaltyPoints\Model\TodoItemFactory; // TODO \LoyaltyPointsFactory
 
+/**
+ * Class AccrualLoyaltyPoints
+ * @package PHP10E2\LoyaltyPoints\Observer\Order
+ */
 class AccrualLoyaltyPoints implements ObserverInterface
 {
     /**

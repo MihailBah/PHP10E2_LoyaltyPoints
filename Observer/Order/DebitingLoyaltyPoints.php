@@ -6,9 +6,15 @@ use Exception;
 use Magento\Framework\App\ObjectManager;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
+use Magento\Quote\Model\Quote\Address\Total;
 use PHP10E2\LoyaltyPoints\Block\Info;
+use PHP10E2\LoyaltyPoints\Model\Quote\LoyaltyPointsTotal;
 use PHP10E2\LoyaltyPoints\Model\TodoItemFactory; // TODO \LoyaltyPointsFactory
 
+/**
+ * Class DebitingLoyaltyPoints
+ * @package PHP10E2\LoyaltyPoints\Observer\Order
+ */
 class DebitingLoyaltyPoints implements ObserverInterface
 {
     /**
@@ -18,6 +24,8 @@ class DebitingLoyaltyPoints implements ObserverInterface
 
     public $toDoFactory;
 
+//    public $total;
+
     /**
      * Data constructor.
      * @param Info $blockInfo
@@ -26,9 +34,11 @@ class DebitingLoyaltyPoints implements ObserverInterface
     public function __construct(
         Info $blockInfo,
         TodoItemFactory $toDoFactory
+//        Total $total
     ) {
         $this->blockInfo = $blockInfo;
         $this->toDoFactory = $toDoFactory;
+//        $this->total = $total;
     }
 
     /**
@@ -56,6 +66,8 @@ class DebitingLoyaltyPoints implements ObserverInterface
         //$grandTotal = $order->getGrandTotal();
 
         //$result = $grandTotal - $oldLP;
+        $am = LoyaltyPointsTotal::getDebPoints();
+        $bAm = LoyaltyPointsTotal::getDebBasePoints();
 
         $result = $subtotal - $oldLP;
 

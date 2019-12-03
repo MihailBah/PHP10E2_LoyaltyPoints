@@ -25,11 +25,20 @@ class Info extends \Magento\Framework\View\Element\Template
      */
     const PATH_TO_GET_CONTROLLER = 'php10e2_loyaltypoints/referral/get/';
 
-    protected $_customerSession;
+    /**
+     * @var Session
+     */
+    private $customerSession;
 
-    protected $toDoFactory;
+    /**
+     * @var TodoItemFactory
+     */
+    private $toDoFactory;
 
-    protected $_objectManager;
+//    /**
+//     * @var
+//     */
+//    private $_objectManager;
 
     /**
      * Info constructor.
@@ -42,25 +51,30 @@ class Info extends \Magento\Framework\View\Element\Template
         Session $customerSession,
         TodoItemFactory $toDoFactory
     ) {
-        $this->_customerSession = $customerSession;
+        $this->customerSession = $customerSession;
         $this->toDoFactory = $toDoFactory;
         parent::__construct($context, []);
     }
 
-    public function getCustomerEmail()
+    /**
+     * @return string
+     */
+    public function getCustomerEmail() : string
     {
-        return $this->_customerSession->getCustomer() ? $this->_customerSession->getCustomer()->getEmail() : '';
+        return $this->customerSession->getCustomer() ? $this->customerSession->getCustomer()->getEmail() : '';
     }
 
-    public function getReferralLink()
+    /**
+     * @return string
+     */
+    public function getReferralLink() : string
     {
-        $referralLink = $this->getBaseUrl() . self::PATH_TO_GET_CONTROLLER . Get::COOKIE_REFERRAL . '/' . $this->encryptId();
-        return $referralLink;
+        return $this->getBaseUrl() . self::PATH_TO_GET_CONTROLLER . Get::COOKIE_REFERRAL . '/' . $this->encryptId();
     }
 
     public function getCustomerId()
     {
-        return $this->_customerSession->getCustomer() ? $this->_customerSession->getCustomer()->getId() : '';
+        return $this->customerSession->getCustomer() ? $this->customerSession->getCustomer()->getId() : '';
     }
 
     public function encryptData($data, $key)
@@ -81,7 +95,10 @@ class Info extends \Magento\Framework\View\Element\Template
         return $this->encryptData($this->getCustomerId(), self::KEY);
     }
 
-    public function getLoyaltyPoints()
+    /**
+     * @return float|null
+     */
+    public function getLoyaltyPoints() : ?float
     {
         $todo = $this->toDoFactory->create();
         $id = $this->getCustomerId();
@@ -89,7 +106,10 @@ class Info extends \Magento\Framework\View\Element\Template
         return $todo->getData('loyalty_points');
     }
 
-    public function getDataFromAdmin()
+    /**
+     * @return int
+     */
+    public function getDataFromAdmin() : int
     {
         return $this->_scopeConfig->getValue(Config::CONFIG_PATH_LOYALTYPOINTS_GENERAL_VALUE, ScopeInterface::SCOPE_STORE);
     }

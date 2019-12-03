@@ -7,6 +7,29 @@
                     <item name="components" xsi:type="array">
                         <item name="checkout" xsi:type="array">
                             <item name="children" xsi:type="array">
+
+                                <item name="steps" xsi:type="array">
+                                    <item name="children" xsi:type="array">
+                                        <item name="billing-step" xsi:type="array">
+                                            <item name="component" xsi:type="string">uiComponent</item>
+                                            <item name="children" xsi:type="array">
+                                                <item name="payment" xsi:type="array">
+                                                    <item name="children" xsi:type="array">
+                                                        <item name="afterMethods" xsi:type="array">
+                                                            <item name="children" xsi:type="array">
+                                                                <item name="loyalty_points_total" xsi:type="array">
+                                                                    <item name="component" xsi:type="string">PHP10E2_LoyaltyPoints/js/view/payment/loyalty_points_total</item>
+                                                                    <item name="sortOrder" xsi:type="string">20</item>
+                                                                </item>
+                                                            </item>
+                                                        </item>
+                                                    </item>
+                                                </item>
+                                            </item>
+                                        </item>
+                                    </item>
+                                </item>
+
                                 <item name="sidebar" xsi:type="array">
                                     <item name="children" xsi:type="array">
                                         <item name="summary" xsi:type="array">
@@ -14,7 +37,7 @@
                                                 <item name="totals" xsi:type="array">
                                                     <item name="children" xsi:type="array">
                                                         <item name="loyalty_points_total" xsi:type="array">
-                                                            <item name="component"  xsi:type="string">PHP10E2_LoyaltyPoints/js/view/loyalty_points_total</item>
+                                                            <item name="component"  xsi:type="string">PHP10E2_LoyaltyPoints/js/view/summary/loyalty_points_total</item>
                                                             <item name="sortOrder" xsi:type="string">20</item>
                                                         </item>
                                                     </item>

@@ -11,13 +11,38 @@ use Magento\Framework\Stdlib\Cookie\PhpCookieManager;
 use Magento\Framework\Stdlib\Cookie\PublicCookieMetadata;
 use Magento\Framework\View\Element\Template;
 
+/**
+ * Class Get
+ * @package PHP10E2\LoyaltyPoints\Controller\Referral
+ */
 class Get extends Action
 {
+    /**
+     * @const string
+     */
     const COOKIE_REFERRAL = 'referral';
+
+    /**
+     * @const int
+     */
     const LIFE_TIME_COOKIE = 86400; // 86400 seconds = 1 day;
+
+    /**
+     * @var PhpCookieManager
+     */
     private $cookieManager;
+
+    /**
+     * @var Template
+     */
     private $template;
 
+    /**
+     * Get constructor.
+     * @param Context $context
+     * @param PhpCookieManager $cookieManager
+     * @param Template $template
+     */
     public function __construct(Context $context, PhpCookieManager $cookieManager, Template $template)
     {
         $this->template = $template;

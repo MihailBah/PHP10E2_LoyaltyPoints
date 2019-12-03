@@ -18,7 +18,7 @@ class Config extends Template
     /**
      * @var ScopeConfigInterface
      */
-    protected static $scopeConfig;
+    private static $scopeConfig;
 
     /**
      * Config constructor.

@@ -5,7 +5,7 @@ namespace PHP10E2\LoyaltyPoints\Model\ResourceModel;
 use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
 use Magento\Framework\Model\ResourceModel\Db\Context;
 
-class TodoItem extends AbstractDb // TODO rename to LoyaltyPoints
+class LoyaltyPointsTotal extends AbstractDb
 {
     public function __construct(
         Context $context
@@ -15,6 +15,6 @@ class TodoItem extends AbstractDb // TODO rename to LoyaltyPoints
 
     protected function _construct()
     {
-        $this->_init('customer_entity', 'entity_id'); // TODO mainTable maybe change to const from Model
+        $this->_init('sales_order', 'entity_id'); // TODO mainTable maybe change to const from Model
     }
 }

@@ -23,11 +23,30 @@ class UpgradeSchema implements UpgradeSchemaInterface
                 $installer->getTable('customer_entity'),
                 'loyalty_points',
                 [
-                    'type' => \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
-                    'length' =>'10000',
+                    'type' => \Magento\Framework\DB\Ddl\Table::TYPE_DECIMAL,
                     'nullable' => true,
                     'default' => 0,
                     'comment' =>'Loyalty Points'
+                ]
+            );
+            $installer->getConnection()->addColumn(
+                $installer->getTable('sales_order'),
+                'loyalty_points_total',
+                [
+                    'type' => \Magento\Framework\DB\Ddl\Table::TYPE_DECIMAL,
+                    'nullable' => true,
+                    'default' => null,
+                    'comment' =>'Loyalty Points Total'
+                ]
+            );
+            $installer->getConnection()->addColumn(
+                $installer->getTable('sales_order'),
+                'loyalty_points_base_total',
+                [
+                    'type' => \Magento\Framework\DB\Ddl\Table::TYPE_DECIMAL,
+                    'nullable' => true,
+                    'default' => null,
+                    'comment' =>'Loyalty Points Base Total'
                 ]
             );
         }

@@ -14,9 +14,9 @@ class SaveDataToOrderObserver implements ObserverInterface
      */
     public function execute(EventObserver $observer)
     {
-        $points = LoyaltyPointsTotal::getDebPoints();
+//        $points = LoyaltyPointsTotal::getDebPoints();
         $order = $observer->getOrder();
-        $order->setCustomerPrefix('TEST DATA');
-        return $this;
+//        $order->setCustomerPrefix('TEST DATA');
+//        return $this;
     }
 }

@@ -9,7 +9,7 @@ use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
 use PHP10E2\LoyaltyPoints\Block\Info;
 use PHP10E2\LoyaltyPoints\Controller\Referral\Get;
-use PHP10E2\LoyaltyPoints\Model\TodoItemFactory; // TODO \LoyaltyPointsFactory
+use PHP10E2\LoyaltyPoints\Model\CustomerLoyaltyPointsFactory;
 
 /**
  * Class AccrualLoyaltyPoints
@@ -29,25 +29,25 @@ class AccrualLoyaltyPoints implements ObserverInterface
 
     protected $scopeConfig;
 
-    protected $toDoFactory;
+    protected $customerLoyaltyPointsFactory;
 
     /**
      * Data constructor.
      * @param Get $get
      * @param Info $blockInfo
      * @param ScopeConfigInterface $scopeConfig
-     * @param TodoItemFactory $toDoFactory
+     * @param CustomerLoyaltyPointsFactory $customerLoyaltyPointsFactory
      */
     public function __construct(
         Get $get,
         Info $blockInfo,
         ScopeConfigInterface $scopeConfig,
-        TodoItemFactory $toDoFactory
+        CustomerLoyaltyPointsFactory $customerLoyaltyPointsFactory
     ) {
         $this->get = $get;
         $this->blockInfo = $blockInfo;
         $this->scopeConfig = $scopeConfig;
-        $this->toDoFactory = $toDoFactory;
+        $this->customerLoyaltyPointsFactory = $customerLoyaltyPointsFactory;
     }
 
     /**
@@ -72,14 +72,14 @@ class AccrualLoyaltyPoints implements ObserverInterface
                 $grandTotal = $order->getGrandTotal();
 
                 $percentage = $this->blockInfo->getDataFromAdmin();
-                $LP = round(($percentage / 100) * $grandTotal);
+                $LP = round(($percentage / 100) * $grandTotal, 2);
 
-                $todo = $this->toDoFactory->create();
-                $todo = $todo->load($decodedId);
+                $loyaltyPointModel = $this->customerLoyaltyPointsFactory->create();
+                $loyaltyPointModel = $loyaltyPointModel->load($decodedId);
 
-                $oldLP = intval($todo->getData('loyalty_points'));
+                $oldLP = floatval($loyaltyPointModel->getData('loyalty_points'));
                 $newLP = $oldLP + $LP;
-                $todo->setData('loyalty_points', $newLP)->save();
+                $loyaltyPointModel->setData('loyalty_points', $newLP)->save();
             }
         }
     }

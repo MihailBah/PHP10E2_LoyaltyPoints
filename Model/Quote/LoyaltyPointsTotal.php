@@ -39,6 +39,8 @@ class LoyaltyPointsTotal extends AbstractTotal
      */
     const CODE = 'loyalty_points_total';
 
+    const BASE_CODE = 'loyalty_points_base_total';
+
     /**
      * LoyaltyPointsTotal constructor.
      * @param Info $blockInfo

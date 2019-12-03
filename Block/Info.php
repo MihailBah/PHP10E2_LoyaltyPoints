@@ -113,4 +113,6 @@ class Info extends \Magento\Framework\View\Element\Template
     {
         return $this->_scopeConfig->getValue(Config::CONFIG_PATH_LOYALTYPOINTS_GENERAL_VALUE, ScopeInterface::SCOPE_STORE);
     }
+
+
 }

@@ -2,29 +2,22 @@
 
 namespace PHP10E2\LoyaltyPoints\Helper;
 
-use Magento\Framework\App\Helper\AbstractHelper;
 use Magento\Store\Model\ScopeInterface;
-use PHP10E2\LoyaltyPoints\Block\System\Config;
+use Magento\Framework\App\Helper\AbstractHelper;
 
 class Data extends AbstractHelper
 {
-    public function getConfig($scope)
-    {
-        try {
-            switch ($scope) {
-                case 'store':
-                    $scopeType = ScopeInterface::SCOPE_STORE;
-                    break;
-                case 'website':
-                    $scopeType = ScopeInterface::SCOPE_WEBSITE;
-                    break;
-                default:
-                    $scopeType = ScopeInterface::SCOPE_STORE;
-            }
+    const XML_PATH_LOYALTYPOINTS = 'LoyaltyPoints/';
 
-            return $this->scopeConfig->getValue(Config::CONFIG_PATH_LOYALTYPOINTS_GENERAL_VALUE, $scopeType);
-        } catch (\Exception $e) {
-            return false;
-        }
+    public function getConfigValue($field, $storeId = null)
+    {
+        return $this->scopeConfig->getValue(
+            $field, ScopeInterface::SCOPE_STORE, $storeId
+        );
+    }
+
+    public function getGeneralConfig($code, $storeId = null)
+    {
+        return $this->getConfigValue(self::XML_PATH_LOYALTYPOINTS .'general/'. $code, $storeId);
     }
 }

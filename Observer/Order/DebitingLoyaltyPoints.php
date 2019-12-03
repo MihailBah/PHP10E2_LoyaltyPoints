@@ -9,7 +9,7 @@ use Magento\Framework\Event\ObserverInterface;
 use Magento\Quote\Model\Quote\Address\Total;
 use PHP10E2\LoyaltyPoints\Block\Info;
 use PHP10E2\LoyaltyPoints\Model\Quote\LoyaltyPointsTotal;
-use PHP10E2\LoyaltyPoints\Model\TodoItemFactory; // TODO \LoyaltyPointsFactory
+use PHP10E2\LoyaltyPoints\Model\CustomerLoyaltyPointsFactory;
 
 /**
  * Class DebitingLoyaltyPoints
@@ -22,22 +22,22 @@ class DebitingLoyaltyPoints implements ObserverInterface
      */
     public $blockInfo;
 
-    public $toDoFactory;
+    public $customerLoyaltyPointsFactory;
 
 //    public $total;
 
     /**
      * Data constructor.
      * @param Info $blockInfo
-     * @param TodoItemFactory $toDoFactory
+     * @param CustomerLoyaltyPointsFactory $customerLoyaltyPointsFactory
      */
     public function __construct(
         Info $blockInfo,
-        TodoItemFactory $toDoFactory
+        CustomerLoyaltyPointsFactory $customerLoyaltyPointsFactory
 //        Total $total
     ) {
         $this->blockInfo = $blockInfo;
-        $this->toDoFactory = $toDoFactory;
+        $this->customerLoyaltyPointsFactory = $customerLoyaltyPointsFactory;
 //        $this->total = $total;
     }
 
@@ -53,13 +53,13 @@ class DebitingLoyaltyPoints implements ObserverInterface
         $objectManager = ObjectManager::getInstance();
         $order = $objectManager->create('Magento\Sales\Api\Data\OrderInterface')->load($orderId);
 
-        $todo = $this->toDoFactory->create(); // TODO rename loyaltyPointModel
+        $loyaltyPointsModel = $this->customerLoyaltyPointsFactory->create();
         $id = $this->blockInfo->getCustomerId();
-        $todo = $todo->load($id);
+        $loyaltyPointsModel = $loyaltyPointsModel->load($id);
 
-        $oldLP = intval($todo->getData('loyalty_points'));
+        $oldLP = floatval($loyaltyPointsModel->getData('loyalty_points'));
 
-        $subtotal = $order->getSubtotal();
+        //$subtotal = $order->getSubtotal();
 
         //$discount = $order->getDiscountAmount();
 
@@ -69,13 +69,13 @@ class DebitingLoyaltyPoints implements ObserverInterface
         $am = LoyaltyPointsTotal::getDebPoints();
         $bAm = LoyaltyPointsTotal::getDebBasePoints();
 
-        $result = $subtotal - $oldLP;
-
-        if ($result >= 0) {
-            $todo->setData('loyalty_points', 0)->save();
-        } else {
-            $result = $result * -1;
-            $todo->setData('loyalty_points', $result)->save();
-        }
+//        $result = $subtotal - $oldLP;
+//
+//        if ($result >= 0) {
+//            $loyaltyPointsModel->setData('loyalty_points', 0)->save();
+//        } else {
+//            $result = $result * -1;
+//            $loyaltyPointsModel->setData('loyalty_points', $result)->save();
+//        }
     }
 }
